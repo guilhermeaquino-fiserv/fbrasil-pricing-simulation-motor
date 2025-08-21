@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Menu lateral
-pagina = st.sidebar.selectbox("Selecione a página", ["Página 1 - Taxas", "Página 2 - Outra funcionalidade"])
+pagina = st.sidebar.selectbox("Selecione a página", ["P&L", "Consulta Politica"])
 
 # Página 1
 if pagina == "P&L":
