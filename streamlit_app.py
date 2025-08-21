@@ -1,29 +1,36 @@
 
 import streamlit as st
+import pandas as pd
 
-# Título do app
-st.title("Multiplicador de X e Y")
+st.title("Taxas Solicitadas")
 
+# Dados fixos
+bandeiras = ["Visa", "MasterCard", "Elo", "Amex"]
+planos = ["Débito", "Crédito", "Parcelado 2 a 6", "Parcelado 7 a 12"]
 
+# Criar estrutura da tabela
+dados = []
+for bandeira in bandeiras:
+    for plano in planos:
+        dados.append({"Bandeira": bandeira, "Plano de venda": plano, "Margem (%)": 0.00})
 
-x = st.number_input("CNPJ", value=0)
-y = st.number_input("CNAE", value=0)
+df = pd.DataFrame(dados)
 
-# Layout em colunas
-col1, col2 = st.columns(2)
+# Interface para preenchimento
+st.write("Preencha as margens abaixo:")
 
-with col1:
-    debit = st.number_input("Digite o valor de debit", value=0.0)
-    cred = st.number_input("Digite o valor de cred", value=0.0)
+# Criar inputs dinâmicos
+for i in range(len(df)):
+    margem_input = st.number_input(
+        label=f"{df.loc[i, 'Bandeira']} - {df.loc[i, 'Plano de venda']}",
+        min_value=0.0,
+        max_value=100.0,
+        value=df.loc[i, "Margem (%)"],
+        step=0.01,
+        key=f"margem_{i}"
+    )
+    df.loc[i, "Margem (%)"] = margem_input
 
-with col2:    
-    parc6 = st.number_input("Digite o valor de parc6", value=0.0)
-    parc12 = st.number_input("Digite o valor de parc12", value=0.0)
-    
-
-
-
-# Botão para calcular
-if st.button("Multiplicar"):
-    resultado = x * y
-    st.success(f"{resultado}")
+# Exibir tabela atualizada
+st.subheader("Tabela Atualizada")
+st.dataframe(df)
