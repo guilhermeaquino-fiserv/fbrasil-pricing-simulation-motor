@@ -1,36 +1,43 @@
-
 import streamlit as st
 import pandas as pd
 
-st.title("Taxas Solicitadas")
+st.title("Taxas Solicitadas*")
 
 # Dados fixos
-bandeiras = ["Visa", "MasterCard", "Elo", "Amex"]
-planos = ["Débito", "Crédito", "Parcelado 2 a 6", "Parcelado 7 a 12"]
-
-# Criar estrutura da tabela
-dados = []
-for bandeira in bandeiras:
-    for plano in planos:
-        dados.append({"Bandeira": bandeira, "Plano de venda": plano, "Margem (%)": 0.00})
+dados = {
+    "Bandeira": [
+        "Visa", "Visa", "Visa", "Visa",
+        "MasterCard", "MasterCard", "MasterCard", "MasterCard",
+        "Elo", "Elo", "Elo", "Elo",
+        "Amex", "Amex", "Amex", "Amex"
+    ],
+    "Plano de venda": [
+        "Débito", "Crédito", "Parcelado 2 a 6", "Parcelado 7 a 12",
+        "Débito", "Crédito", "Parcelado 2 a 6", "Parcelado 7 a 12",
+        "Débito", "Crédito", "Parcelado 2 a 6", "Parcelado 7 a 12",
+        "Débito", "Crédito", "Parcelado 2 a 6", "Parcelado 7 a 12"
+    ],
+    "Margem (%)": [0.00] * 16
+}
 
 df = pd.DataFrame(dados)
 
-# Interface para preenchimento
-st.write("Preencha as margens abaixo:")
+# Editor de dados
+edited_df = st.data_editor(
+    df,
+    num_rows="fixed",
+    column_config={
+        "Margem (%)": st.column_config.NumberColumn(
+            "Margem (%)",
+            min_value=0.0,
+            max_value=100.0,
+            step=0.01,
+            format="%.2f"
+        )
+    },
+    use_container_width=True
+)
 
-# Criar inputs dinâmicos
-for i in range(len(df)):
-    margem_input = st.number_input(
-        label=f"{df.loc[i, 'Bandeira']} - {df.loc[i, 'Plano de venda']}",
-        min_value=0.0,
-        max_value=100.0,
-        value=df.loc[i, "Margem (%)"],
-        step=0.01,
-        key=f"margem_{i}"
-    )
-    df.loc[i, "Margem (%)"] = margem_input
-
-# Exibir tabela atualizada
+# Exibir resultado final
 st.subheader("Tabela Atualizada")
-st.dataframe(df)
+st.dataframe(edited_df, use_container_width=True)
