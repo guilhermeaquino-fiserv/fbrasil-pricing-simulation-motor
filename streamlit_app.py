@@ -15,4 +15,4 @@ parc12 = st.number_input("Digite o valor de Y", value=0.0)
 # Botão para calcular
 if st.button("Multiplicar"):
     resultado = x * y
-    st.success(f"O resultado de {x} × {y} é {resultado}")
+    st.success(f"{resultado}")
