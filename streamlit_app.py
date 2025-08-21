@@ -4,7 +4,7 @@ import streamlit as st
 pagina = st.sidebar.selectbox("Selecione a página", ["Página 1 - Taxas", "Página 2 - Outra funcionalidade"])
 
 # Página 1
-if pagina == "Página 1 - Taxas":
+if pagina == "P&L":
     st.title("Taxas Solicitadas*")
 
     # Dados fixos
@@ -44,7 +44,7 @@ if pagina == "Página 1 - Taxas":
 
 
 # Página 2
-elif pagina == "Página 2 - Outra funcionalidade":
+elif pagina == "Consulta Politica":
     st.title("Politica BAU")
     
     # Campos de entrada
