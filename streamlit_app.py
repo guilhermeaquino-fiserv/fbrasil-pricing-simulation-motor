@@ -4,12 +4,13 @@ import streamlit as st
 # Título do app
 st.title("Multiplicador de X e Y")
 
-# Layout em colunas
-col1, col2 = st.columns(2)
 
 
 x = st.number_input("CNPJ", value=0)
 y = st.number_input("CNAE", value=0)
+
+# Layout em colunas
+col1, col2 = st.columns(2)
 
 with col1:
     debit = st.number_input("Digite o valor de debit", value=0.0)
