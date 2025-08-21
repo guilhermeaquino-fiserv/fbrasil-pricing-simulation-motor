@@ -42,6 +42,9 @@ if pagina == "P&L":
         use_container_width=True
     )
 
+    if st.button("Consultar"):
+       st.success(f"mostra tabela com condições")
+
 
 # Página 2
 elif pagina == "Consulta Politica":
@@ -49,8 +52,8 @@ elif pagina == "Consulta Politica":
     
     # Campos de entrada
     nome = st.text_input("Nome")
-    fat_ano = st.number_input("Faturamento Anual", value=0.0)
-    cnae = st.number_input("CNAE")
+    fat_ano = st.number_input("Faturamento Anual")
+    cnae = st.number_input("CNAE", value = 0)
     
     # Botão para calcular
     if st.button("Consultar"):
