@@ -42,10 +42,17 @@ if pagina == "Página 1 - Taxas":
         use_container_width=True
     )
 
-    st.subheader("Tabela Atualizada")
-    st.dataframe(edited_df, use_container_width=True)
 
 # Página 2
 elif pagina == "Página 2 - Outra funcionalidade":
-    st.title("Página 2")
-    st.write("Aqui você pode adicionar outra funcionalidade, como gráficos, uploads, análises, etc.")
+    st.title("Politica BAU")
+    
+    # Campos de entrada
+    nome = st.text_input("Nome")
+    fat_ano = st.number_input("Faturamento Anual", value=0.0)
+    cnae = st.number_input("CNAE")
+    
+    # Botão para calcular
+    if st.button("Consultar"):
+       st.success(f"mostra tabela com condições")
+
